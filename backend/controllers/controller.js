@@ -26,9 +26,22 @@ const deleteSong = async(req,res)=>{
     res.status(200).json(song)
 }
 
+
+const updateSong = async(req,res)=>{
+    const {id} = req.params
+    const song = await SongModel.findOneAndUpdate({_id:id},req.body,{
+        new:true,
+        runValidators: true
+    })
+    console.log(song);
+    if(!task) return res.status(404).json({msg:"Task is not found"})
+    res.status(200).json(song)
+}
+
 module.exports = {
     createSong,
     getSongs, 
     getSingleSong,
     deleteSong, 
+    updateSong,
 }
