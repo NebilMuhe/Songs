@@ -11,7 +11,16 @@ const getSongs =  async(req,res)=>{
     res.status(200).json(songs)
 }
 
+const getSingleSong = async(req,res,next)=>{
+    const {id} = req.params;
+    const song = await SongModel.findOne({_id:id})
+    if(!song) 
+       return next(createCustomError("No Task Found.",404))
+    return res.status(200).json(song)
+}
+
 module.exports = {
     createSong,
-    getSongs,  
+    getSongs, 
+    getSingleSong, 
 }
