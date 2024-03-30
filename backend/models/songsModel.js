@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const allowedGenres = ['Pop', 'Rock', 'Hip Hop', 'Electronic', 'Classical','Other'];
+const allowedGenres = ['pop', 'rock', 'hip hop', 'electronic', 'classical','other'];
 
 const songSchema = new Schema({
     title:{
@@ -9,7 +9,7 @@ const songSchema = new Schema({
         required: true
     },
     artist:{
-        type: String,
+        type: String, 
         required:true
     },
     album: {
@@ -20,6 +20,10 @@ const songSchema = new Schema({
         type: String,
         required:true,
         enum: allowedGenres,
+        validate: { 
+            validator: (value) => allowedGenres.includes(value.toLowerCase()),
+            message: 'Genre must be one of the allowed genres'
+        }
     }
 })
 

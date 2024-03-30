@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const CORS = require('cors')
 const connectDB = require('./database/db');
-const songs = require("./Routes/route")
+const songs = require("./routes/route")
 
 const port = process.env.PORT || 3000
 const uri = process.env.MONGO_URI

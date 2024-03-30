@@ -6,6 +6,12 @@ const createSong = async(req,res)=>{
     res.status(200).json(song)
 }
 
+const getSongs =  async(req,res)=>{
+    const songs = await SongModel.find()
+    res.status(200).json(songs)
+}
+
 module.exports = {
-    createSong,  
+    createSong,
+    getSongs,  
 }
