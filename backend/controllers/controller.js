@@ -40,14 +40,10 @@ const updateSong = asyncWrapper(async(req,res,next)=>{
     res.status(200).json(song)
 })
 
-const songStatistics = async (req, res) => {
-    try {
+const songStatistics = asyncWrapper(async (req, res) => {
       const stats = await getStats();
-      res.json(stats);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  }
+      res.status(200).json(stats);
+  })
 
 module.exports = {
     createSong,
