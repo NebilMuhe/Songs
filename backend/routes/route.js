@@ -9,6 +9,6 @@ router.get('/',getSongs)
 router.get('/:id',validateID,getSingleSong)
 router.delete('/:id',validateID,deleteSong)
 router.put('/:id',validateID,updateSong)
-router.get('/stats', songStatistics);
+router.get('/v1/stats/', songStatistics);
 
 module.exports = router

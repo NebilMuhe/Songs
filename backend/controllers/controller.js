@@ -1,6 +1,7 @@
 const SongModel = require("../models/songsModel")
-const asyncWrapper = require('../middleware/asyncWrapper')
+const asyncWrapper = require('../middleware/asyncWrapper')  
 const { createCustomError } = require('../error/customError')
+const { getStats } = require("../utils/statistics")
 
 const createSong = asyncWrapper(async(req,res)=>{
     const {title,artist,album,genre} = req.body
@@ -44,6 +45,8 @@ const songStatistics = asyncWrapper(async (req, res) => {
       const stats = await getStats();
       res.status(200).json(stats);
   })
+
+
 
 module.exports = {
     createSong,
