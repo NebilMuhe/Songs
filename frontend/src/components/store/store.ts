@@ -11,7 +11,7 @@ const store = configureStore({
   reducer:{
     songs: slice,
   }, 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({  serializableCheck: false}).concat(sagaMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
 })
 
 sagaMiddleware.run(sagaSong)

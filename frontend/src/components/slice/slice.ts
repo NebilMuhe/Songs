@@ -9,7 +9,7 @@ export interface SongItem {
 }
 
 export interface SongState{
-    songs: SongItem[];
+    songItems: SongItem[];
     isLoading: boolean;
     errors: string
 }
@@ -19,7 +19,7 @@ export interface SongState{
 // }
 
 const initialState:SongState = {
-    songs: [],
+    songItems: [],
     isLoading: false,
     errors: ""
 }
@@ -33,31 +33,47 @@ export const songSlice = createSlice({
             state.errors = ""
         },
         getSongsSucess:(state,action)=>{
-            state.songs = action.payload
+            state.songItems = action.payload
             state.isLoading = false
             state.errors = ""
         },
         getSongsFailed:(state,action)=>{
             state.isLoading = false
-            state.errors = action.payload
+            state.errors = action.payload.message
         },
         removeSongRequest:(state) =>{
             state.isLoading = true
             state.errors = ""
         },
         removeSongSucess:(state,action) =>{
-            const songId = action.payload;
-            const song = state.songs?.filter(song=>song._id!=songId)
-            state.songs = song
-            state.isLoading = true
+            const songId = action.payload._id;
+            const song = state.songItems?.filter(song=>song._id!=songId)
+            state.songItems = song
+            state.isLoading =  false
             state.errors = ""
         },
         removeSongFailed:(state,action) =>{
             state.isLoading = true
-            state.errors = action.payload
-        }
+            state.errors = action.payload.message
+        },
+        updateSongRequest:(state) =>{
+            state.isLoading = true
+            state.errors = ""
+        },
+        updateSongSucess:(state,action) =>{
+            const songId = action.payload._id
+            const updatedSong =  state.songItems.map((song)=> song._id === songId ? action.payload:song)
+            state.songItems = updatedSong
+            state.isLoading =  false
+            state.errors = ""
+        },
+        updateSongFailed:(state,action) =>{
+            state.isLoading = true
+            state.errors = action.payload.message
+        },
+        
     }
 });
 
-export const {getSongsRequest,getSongsSucess,getSongsFailed} = songSlice.actions
+export const {getSongsRequest,getSongsSucess,getSongsFailed,removeSongRequest,removeSongSucess, removeSongFailed} = songSlice.actions
 export default songSlice.reducer
