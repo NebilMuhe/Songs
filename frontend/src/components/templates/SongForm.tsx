@@ -1,14 +1,9 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 import { addSongsRequest } from "../slice/slice";
 import { css } from "@emotion/react";
 import { closeAddModal } from "../slice/modalSlice";
-
-// const Div = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
 
 const addButton = css`
   background: blue;
@@ -161,10 +156,11 @@ const SongsForm = () => {
               >
                 <option value=""></option>
                 <option value="reggae">Reggae</option>
-                <option value="jazz">Jazz</option>
-                <option value="disco">Disco</option>
-                <option value="hiphop">HipHop</option>
                 <option value="rock">Rock</option>
+                <option value="classical">Classical</option>
+                <option value="hip hop">HipHop</option>
+                <option value="pop">Pop</option>
+                <option value="other">Other</option>
               </Select>
             </div>
             <div>

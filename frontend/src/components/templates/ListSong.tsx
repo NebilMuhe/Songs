@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeSongRequest, SongItem, SongState } from "../slice/slice";
+import { removeSongRequest, SongState } from "../slice/slice";
 import styled from "@emotion/styled";
 import { RootState } from "../store/store";
 import { css } from "@emotion/react";
@@ -43,11 +43,6 @@ const editButton = css`
 
 const deleteButton = css`
   background: #de321f;
-`;
-
-const clearButton = css`
-  margin-top: 10px;
-  background: dodgerblue;
 `;
 
 const ListSong = () => {

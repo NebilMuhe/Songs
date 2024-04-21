@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { EditItem, closeEditModal } from "../slice/editSlice";
 import { css } from "@emotion/react";
-// import songItems from "../songItems";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";

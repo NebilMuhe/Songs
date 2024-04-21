@@ -14,9 +14,6 @@ const initialState:EditItem = {
     id:""  
 }
 
-
-
-
 const editSlice = createSlice({
     name:'edit',
     initialState,
@@ -29,13 +26,10 @@ const editSlice = createSlice({
         closeEditModal:(state)=>{
             state.isEditOpen = false
         },
-        dataEditModal:(state,payload)=>{
-            state.isEditOpen = false
-        }
+    
     }
 
 })
 
-// console.log(songSlice)
-export const {openEditModal,closeEditModal,dataEditModal} = editSlice.actions;
+export const {openEditModal,closeEditModal} = editSlice.actions;
 export default editSlice.reducer

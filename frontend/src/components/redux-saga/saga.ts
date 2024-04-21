@@ -2,9 +2,6 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { addSongsFailed, addSongsSucess, getSongsFailed, getSongsSucess, removeSongFailed, removeSongSucess, SongItem, updateSongFailed, updateSongSucess } from '../slice/slice'
 import axios, { AxiosResponse } from 'axios'
 
-
-
-
 function* fetchSongs() {
     try {
         const response:AxiosResponse = yield call(axios.get,"http://localhost:4000/api/songs")
