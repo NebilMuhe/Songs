@@ -11,13 +11,13 @@ const initialState:ModalItem = {
 }
 
 const modalSlice = createSlice({
-    name:'modal',
+    name:'add',
     initialState,
     reducers:{
-        openModal:(state)=>{
+        openAddModal:(state)=>{
             state.isOpen = true
         },  
-        closeModal:(state)=>{
+        closeAddModal:(state)=>{
             state.isOpen = false
         }
     }
@@ -25,5 +25,5 @@ const modalSlice = createSlice({
 })
 
 // console.log(songSlice)
-export const {openModal,closeModal} = modalSlice.actions;
+export const {openAddModal,closeAddModal} = modalSlice.actions;
 export default modalSlice.reducer

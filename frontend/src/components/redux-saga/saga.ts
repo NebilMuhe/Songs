@@ -1,7 +1,5 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { CREATE_SONG_REQUESTED, REMOVE_SONG_REQUESTED, SONG_FETCH_FAILED, SONG_FETCH_REQUESTED, SONG_FETCH_SUCCESS, UPDATE_SONG_REQUESTED } from '../actions/action'
-import { fetchSong } from '../api/api'
-import { getSongsFailed, getSongsSucess, removeSongFailed, removeSongSucess, SongItem, SongState, updateSongFailed, updateSongSucess } from '../slice/slice'
+import { call, put, takeLatest } from 'redux-saga/effects'
+import { addSongsFailed, addSongsSucess, getSongsFailed, getSongsSucess, removeSongFailed, removeSongSucess, SongItem, updateSongFailed, updateSongSucess } from '../slice/slice'
 import axios, { AxiosResponse } from 'axios'
 
 
@@ -28,11 +26,13 @@ function* updateSong({payload}:any):any{
     }
 }
 
-function* addSong(){
+function* addSong({payload}:any):any{
     try {
-        const song:SongItem = yield call(axios.post,"http://localhost:4000/api/songs")
+        const response:AxiosResponse = yield call(axios.post,"http://localhost:4000/api/songs",payload)
+        const song:SongItem = yield response.data
+        yield put(addSongsSucess(song))
     } catch (e) {
-      
+       yield put(addSongsFailed(e))
     }
 }
 
@@ -48,10 +48,9 @@ function* removeSong(id: any):any{
 }
 
 function* fetchSongData() {
-    // yield takeLatest(SONG_FETCH_REQUESTED,fetchSongs)
     yield takeLatest("songs/getSongsRequest",fetchSongs)
     yield takeLatest("songs/updateSongRequest",updateSong)
-    yield takeLatest("songs/addSongsRequst",addSong)
+    yield takeLatest("songs/addSongsRequest",addSong)
     yield takeLatest("songs/removeSongRequest",removeSong)
 }
 

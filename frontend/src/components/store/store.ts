@@ -14,7 +14,7 @@ const store = configureStore({
   reducer:{
     songs: slice,
     edit: editSlice,
-    modal: modalSlice
+    add: modalSlice
   }, 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
 })

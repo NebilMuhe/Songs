@@ -68,10 +68,23 @@ export const songSlice = createSlice({
             state.isLoading = true
             state.errors = action.payload.message
         },
+        addSongsRequest:(state,action)=>{
+            state.isLoading = true
+            state.errors = ""
+        },
+        addSongsSucess:(state,action)=>{
+            state.songItems = [...state.songItems,action.payload]
+            state.isLoading = false
+            state.errors = ""
+        },
+        addSongsFailed:(state,action)=>{
+            state.isLoading = false
+            state.errors = action.payload.message
+        },
         
     }
 });
 
 export const {getSongsRequest,getSongsSucess,getSongsFailed,removeSongRequest,removeSongSucess, removeSongFailed,
-    updateSongRequest,updateSongSucess,updateSongFailed} = songSlice.actions
+    updateSongRequest,updateSongSucess,updateSongFailed,addSongsRequest,addSongsSucess,addSongsFailed} = songSlice.actions
 export default songSlice.reducer
