@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const allowedGenres = ['pop', 'rock', 'hip hop', 'electronic', 'classical','other'];
+const allowedGenres = ['pop', 'rock', 'hip hop', 'electronic', 'classical','reggae','other'];
 
 const songSchema = new Schema({
     title:{

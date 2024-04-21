@@ -32,11 +32,11 @@ const deleteSong = asyncWrapper(async(req,res,next)=>{
 
 const updateSong = asyncWrapper(async(req,res,next)=>{
     const {id} = req.params
+  
     const song = await SongModel.findOneAndUpdate({_id:id},req.body,{
         new:true,
         runValidators: true
     })
-    console.log(song);
     if(!song)  return next(createCustomError("no song found with this id",404))
     res.status(200).json(song)
 })
