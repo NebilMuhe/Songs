@@ -10,6 +10,8 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ModalItem, openAddModal } from "./components/slice/modalSlice";
 import SongsForm from "./components/templates/SongForm";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/templates/Home";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,12 +46,17 @@ function App() {
 
   return (
     <>
-      <Button css={addButton} onClick={() => dispatch(openAddModal())}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add" element={<SongsForm />} />
+        <Route path="/edit/:id" element={<EditModal />} />
+      </Routes>
+      {/* <Button css={addButton} onClick={() => dispatch(openAddModal())}>
         Add
-      </Button>
-      <ListSong />
-      {isOpen && <SongsForm />}
-      {isEditOpen && <EditModal />}
+      </Button> */}
+
+      {/* {isOpen && <SongsForm />}
+      {isEditOpen && <EditModal />} */}
     </>
   );
 }

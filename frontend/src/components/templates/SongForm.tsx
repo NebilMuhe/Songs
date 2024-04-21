@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addSongsRequest } from "../slice/slice";
 import { css } from "@emotion/react";
 import { closeAddModal } from "../slice/modalSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const addButton = css`
   background: blue;
@@ -67,13 +68,8 @@ const Button = styled.button`
 `;
 
 const Aside = styled.aside`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,8 +78,6 @@ const Aside = styled.aside`
 const Div = styled.div`
   background: #fff;
   width: 80vw;
-  height: 50vh;
-  padding-left: 30px;
   max-width: 900px;
   border-radius: 0.25rem;
 `;
@@ -102,11 +96,12 @@ const SongsForm = () => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    dispatch(closeAddModal());
     dispatch(addSongsRequest(song));
+    navigate("/");
   };
 
   return (
@@ -167,12 +162,9 @@ const SongsForm = () => {
               <Button css={addButton} type="submit">
                 Add
               </Button>
-              <Button
-                css={cancelButton}
-                onClick={() => dispatch(closeAddModal())}
-              >
-                Cancel
-              </Button>
+              <Link to="/">
+                <Button css={cancelButton}>Cancel</Button>
+              </Link>
             </div>
           </form>
         </div>

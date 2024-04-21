@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { RootState } from "../store/store";
 import { css } from "@emotion/react";
 import { openEditModal } from "../slice/editSlice";
+import { Link } from "react-router-dom";
 
 const Table = styled.table`
   border: 0 solid grey;
@@ -69,14 +70,9 @@ const ListSong = () => {
               <Td>{value.album}</Td>
               <Td>{value.genre}</Td>
               <Td>
-                <Button
-                  css={editButton}
-                  onClick={() => {
-                    dispatch(openEditModal(value._id));
-                  }}
-                >
-                  Edit
-                </Button>
+                <Link to={`/edit/${value._id}`}>
+                  <Button css={editButton}>Edit</Button>
+                </Link>
               </Td>
               <Td>
                 <Button

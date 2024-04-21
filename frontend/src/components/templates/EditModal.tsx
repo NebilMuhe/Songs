@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { EditItem, closeEditModal } from "../slice/editSlice";
 import { css } from "@emotion/react";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { SongItem, updateSongRequest } from "../slice/slice";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const editButton = css`
   background: blue;
@@ -15,13 +15,8 @@ const cancelButton = css`
 `;
 
 const Aside = styled.aside`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,10 +37,28 @@ const Label = styled.label`
 const Input = styled.input`
   border: 1px solid #ccc;
   display: block;
-  width: 40vw;
+  width: 60vw;
   height: 20px;
   padding: 0.5rem;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  &:focus {
+    border-color: #7db0fb;
+    outline: 0;
+    box-shadow: 0 0 0 4px rgba(24, 117, 255, 0.25);
+  }
+`;
+
+const Select = styled.select`
+  border: 1px solid #ccc;
+  display: block;
+  width: 62vw;
+  height: 40px;
+  padding: 0.5rem;
+  margin-left: 10px;
   margin-top: 5px;
   margin-bottom: 15px;
   border-radius: 8px;
@@ -76,35 +89,16 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Select = styled.select`
-  border: 1px solid #ccc;
-  display: block;
-  width: 42vw;
-  height: 40px;
-  padding: 0.5rem;
-  margin-left: 20px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  font-size: 1rem;
-  &:focus {
-    border-color: #7db0fb;
-    outline: 0;
-    box-shadow: 0 0 0 4px rgba(24, 117, 255, 0.25);
-  }
-`;
-
 const EditModal = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  const { id }: EditItem = useSelector<RootState, EditItem>(
-    (state) => state.edit
-  );
   const songItems: SongItem[] = useSelector<RootState, SongItem[]>(
     (state) => state.songs.songItems
   );
 
   const song = songItems.find((song) => song._id === id);
-
   const [songs, setSongs] = useState({
     id: id,
     title: song?.title,
@@ -115,8 +109,8 @@ const EditModal = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(closeEditModal());
     dispatch(updateSongRequest(songs));
+    navigate("/");
   };
 
   return (
@@ -174,12 +168,10 @@ const EditModal = () => {
               <Button css={editButton} type="submit">
                 Edit
               </Button>
-              <Button
-                css={cancelButton}
-                onClick={() => dispatch(closeEditModal())}
-              >
-                Cancel
-              </Button>
+
+              <Link to="/">
+                <Button css={cancelButton}>Cancel</Button>
+              </Link>
             </div>
           </form>
         </div>
