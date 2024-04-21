@@ -14,9 +14,6 @@ export interface SongState{
     errors: string
 }
 
-// interface SongStateType{
-//     song:SongState
-// }
 
 const initialState:SongState = {
     songItems: [],
@@ -56,7 +53,7 @@ export const songSlice = createSlice({
             state.isLoading = true
             state.errors = action.payload.message
         },
-        updateSongRequest:(state) =>{
+        updateSongRequest:(state,action) =>{
             state.isLoading = true
             state.errors = ""
         },
@@ -75,5 +72,6 @@ export const songSlice = createSlice({
     }
 });
 
-export const {getSongsRequest,getSongsSucess,getSongsFailed,removeSongRequest,removeSongSucess, removeSongFailed} = songSlice.actions
+export const {getSongsRequest,getSongsSucess,getSongsFailed,removeSongRequest,removeSongSucess, removeSongFailed,
+    updateSongRequest,updateSongSucess,updateSongFailed} = songSlice.actions
 export default songSlice.reducer

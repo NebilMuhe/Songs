@@ -4,12 +4,17 @@ import createSagaMiddleware from 'redux-saga'
 // import reducer from '../reducers/reducer'
 import sagaSong from '../redux-saga/saga'
 import slice from '../slice/slice'
+import editSlice from "../slice/editSlice"
+import modalSlice from "../slice/modalSlice"
+
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
   reducer:{
     songs: slice,
+    edit: editSlice,
+    modal: modalSlice
   }, 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
 })

@@ -3,6 +3,7 @@ import { removeSongRequest, SongItem, SongState } from "../slice/slice";
 import styled from "@emotion/styled";
 import { RootState } from "../store/store";
 import { css } from "@emotion/react";
+import { openEditModal } from "../slice/editSlice";
 
 const Table = styled.table`
   border: 0 solid grey;
