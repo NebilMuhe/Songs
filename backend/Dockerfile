@@ -1,9 +1,10 @@
-FROM node:18.19.0-alpine3.18
+FROM node:alpine
 
 WORKDIR /app
-COPY package*.json ./
+COPY ./package*.json ./
 RUN npm install
-COPY . . 
+COPY . .
+COPY .env ./
 
 EXPOSE 4000 
 
