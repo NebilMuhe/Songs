@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -90,21 +90,21 @@ const Button = styled.button`
 `;
 
 const EditModal = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const songItems: SongItem[] = useSelector<RootState, SongItem[]>(
     (state) => state.songs.songItems
   );
 
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const song = songItems.find((song) => song._id === id);
   const [songs, setSongs] = useState({
     id: id,
-    title: song?.title,
-    artist: song?.artist,
-    album: song?.album,
-    genre: song?.genre.toLocaleLowerCase(),
+    title: song?.title || "",
+    artist: song?.artist || "",
+    album: song?.album || 0,
+    genre: song?.genre.toLocaleLowerCase() || "",
   });
 
   const handleSubmit = (e: FormEvent) => {
@@ -112,6 +112,18 @@ const EditModal = () => {
     dispatch(updateSongRequest(songs));
     navigate("/");
   };
+
+  useEffect(() => {
+    if (song) {
+      setSongs((prevSongs) => ({
+        ...prevSongs,
+        title: song.title || "",
+        artist: song.artist || "",
+        album: song.album || 0,
+        genre: song.genre?.toLocaleLowerCase() || "",
+      }));
+    }
+  }, [song]);
 
   return (
     <Aside>
