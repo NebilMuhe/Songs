@@ -89,7 +89,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const EditModal = () => {
+const EditForm = () => {
   const dispatch = useDispatch();
   const songItems: SongItem[] = useSelector<RootState, SongItem[]>(
     (state) => state.songs.songItems
@@ -124,6 +124,8 @@ const EditModal = () => {
       }));
     }
   }, [song]);
+
+  // if (!song) return <p>Loading...</p>;
 
   return (
     <Aside>
@@ -192,4 +194,4 @@ const EditModal = () => {
   );
 };
 
-export default EditModal;
+export default EditForm;

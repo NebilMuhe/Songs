@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 export interface ModalItem {
+    id: number,
     isOpen:boolean
 }
 
 
 const initialState:ModalItem = {
+    id:0,
     isOpen: false  
 }
 
@@ -14,10 +16,11 @@ const modalSlice = createSlice({
     name:'add',
     initialState,
     reducers:{
-        openAddModal:(state)=>{
+        openModal:(state,action)=>{
+            state.id = action.payload
             state.isOpen = true
         },  
-        closeAddModal:(state)=>{
+        closeModal:(state)=>{
             state.isOpen = false
         }
     }
@@ -25,5 +28,5 @@ const modalSlice = createSlice({
 })
 
 // console.log(songSlice)
-export const {openAddModal,closeAddModal} = modalSlice.actions;
+export const {openModal,closeModal} = modalSlice.actions;
 export default modalSlice.reducer

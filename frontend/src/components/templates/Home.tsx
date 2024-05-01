@@ -25,6 +25,9 @@ function Home() {
       <Link to="/add">
         <Button css={addButton}>Add</Button>
       </Link>
+      <Link to="/stats">
+        <Button css={addButton}>Stats</Button>
+      </Link>
       <ListSong />
     </div>
   );

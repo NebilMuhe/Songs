@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { addSongsFailed, addSongsSucess,
      getSongsFailed, getSongsSucess, removeSongFailed, removeSongSucess, SongItem, updateSongFailed, updateSongSucess } from '../slice/slice'
 import axios, { AxiosResponse } from 'axios'
+import { getStatsFailed, getStatsSucess } from '../slice/statsSlice'
 
 function* fetchSongs() {
     try {
@@ -46,11 +47,23 @@ function* removeSong(id: any):any{
     }
 }
 
+function* getStats(){
+    try {
+        const response:AxiosResponse = yield call(axios.get,`http://localhost:4000/api/songs/v1/stats/`)
+        const song:SongItem = yield response.data
+        yield put(getStatsSucess(song))
+    console.log("Deleted data",song)
+    } catch (e) {
+       yield put(getStatsFailed(e))
+    }
+}
+
 function* fetchSongData() {
     yield takeLatest("songs/getSongsRequest",fetchSongs)
     yield takeLatest("songs/updateSongRequest",updateSong)
     yield takeLatest("songs/addSongsRequest",addSong)
     yield takeLatest("songs/removeSongRequest",removeSong)
+    yield takeLatest("stats/getStatsRequest",getStats)
 }
 
 

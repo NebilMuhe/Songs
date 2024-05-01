@@ -5,13 +5,16 @@ import { getSongsRequest } from "./components/slice/slice";
 import ListSong from "./components/templates/ListSong";
 import { RootState } from "./components/store/store";
 import { EditItem } from "./components/slice/editSlice";
-import EditModal from "./components/templates/EditModal";
+import EditModal from "./components/templates/EditForm";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ModalItem, openAddModal } from "./components/slice/modalSlice";
+import { ModalItem, openModal } from "./components/slice/modalSlice";
 import SongsForm from "./components/templates/SongForm";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/templates/Home";
+import DeleteModal from "./components/templates/DeleteModal";
+import EditForm from "./components/templates/EditForm";
+import SongStats from "./components/templates/SongStats";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +23,7 @@ function App() {
     (state) => state.edit
   );
 
-  const { isOpen }: ModalItem = useSelector<RootState, ModalItem>(
+  const { isOpen, id }: ModalItem = useSelector<RootState, ModalItem>(
     (state) => state.add
   );
 
@@ -49,14 +52,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<SongsForm />} />
-        <Route path="/edit/:id" element={<EditModal />} />
+        <Route path="/stats" element={<SongStats />} />
+        <Route path="/edit/:id" element={<EditForm />} />
       </Routes>
       {/* <Button css={addButton} onClick={() => dispatch(openAddModal())}>
         Add
       </Button> */}
 
-      {/* {isOpen && <SongsForm />}
-      {isEditOpen && <EditModal />} */}
+      {isOpen && <DeleteModal props={id} />}
+      {/*{isEditOpen && <EditModal />} */}
     </>
   );
 }

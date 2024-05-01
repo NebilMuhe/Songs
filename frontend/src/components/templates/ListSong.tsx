@@ -5,6 +5,7 @@ import { RootState } from "../store/store";
 import { css } from "@emotion/react";
 import { openEditModal } from "../slice/editSlice";
 import { Link } from "react-router-dom";
+import { openModal } from "../slice/modalSlice";
 
 const Table = styled.table`
   border: 0 solid grey;
@@ -77,7 +78,8 @@ const ListSong = () => {
               <Td>
                 <Button
                   css={deleteButton}
-                  onClick={() => dispatch(removeSongRequest(value._id))}
+                  // onClick={() => dispatch(removeSongRequest(value._id))}
+                  onClick={() => dispatch(openModal(value._id))}
                 >
                   Delete
                 </Button>
