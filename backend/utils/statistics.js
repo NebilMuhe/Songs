@@ -16,17 +16,40 @@ const getStats = async() => {
     {
       $project: {
         _id: '$_id',
-        songs: '$_id',
-        albums: { $ifNull: [ "$_id", [] ] }
-        // albums: { $size: '$_id' }
+        songs: '$songs',
+        albums: { $size: '$albums' }
       }
     }
   ]);
 
  
-  const albumStats = await Song.aggregate([
-    { $group: { _id: '$album', count: { $sum: 1 } } }
-  ]);
+  // const albumStats = await Song.aggregate([
+  //   { $group: { _id: '$album', count: { $sum: 1 } } }
+  // ]);
+
+
+const albumStats = await Song.aggregate([
+  {
+    $group: {
+      _id: {
+        artist: '$artist',
+        album: '$album'
+      },
+      songs: { $sum: 1 }
+    }
+  },
+  {
+    $group: {
+      _id: '$_id.artist',
+      albums: {
+        $push: {
+          album: '$_id.album',
+          songs: '$songs'
+        }
+      }
+    }
+  }
+]);
 
   return {
     totalSongs,
